@@ -3,16 +3,12 @@ using System.Collections;
 
 public static class CubicBezier {
 
-	public static IEnumerator CalcWithMovableHandle ( Transform beginTrans,
-	                                                  Vector3 firstHandle,
-	                                                  Vector3 lastHandle,
-	                                                  Transform endTrans,
-	                                                  float speed = 1.0f) {
+	public static IEnumerator Calc (Transform beginTrans, Vector3 firstHandleLocalPos, Vector3 lastHandleLocalPos, Transform endTrans, float speed = 1.0f) {
 		float ratio = 0.0f;
 		do {
 			beginTrans.position = CalcPos ( beginTrans.position,
-			                                beginTrans.position + firstHandle,
-			                                endTrans.position + lastHandle,
+			                                beginTrans.position + firstHandleLocalPos,
+			                                endTrans.position + lastHandleLocalPos,
 			                                endTrans.position,
 			                                ratio );
 			yield return new WaitForEndOfFrame();

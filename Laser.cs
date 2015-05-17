@@ -38,9 +38,9 @@ public class Laser : MonoBehaviour {
 		case CurveType.Quadratic:
 			Debug.Log("Quad");
 			StartCoroutine (
-				QuadraticBezier.CalcWithMovableHandle (
+				QuadraticBezier.Calc (
 					beginTrans: this.transform,
-					handlePos: firstHandleLocalPos,
+					handleLocalPos: firstHandleLocalPos,
 					endTrans: targetObj.transform,
 					speed: 0.5f
 				)
@@ -50,10 +50,10 @@ public class Laser : MonoBehaviour {
 			Debug.Log("Cubic");
 
 			StartCoroutine (
-				CubicBezier.CalcWithMovableHandle (
+				CubicBezier.Calc (
 				beginTrans: this.transform,
-				firstHandle: firstHandleLocalPos,
-				lastHandle: lastHandleLocalPos,
+				firstHandleLocalPos: firstHandleLocalPos,
+				lastHandleLocalPos: lastHandleLocalPos,
 				endTrans: targetObj.transform,
 				speed: 0.5f
 				)
