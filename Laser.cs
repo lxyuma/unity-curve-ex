@@ -6,7 +6,8 @@ public class Laser : MonoBehaviour {
 	public enum CurveType {
 		Quadratic,
 		Cubic,
-		CatmullRom
+		CatmullRom,
+		FergusonCoons
 	}
 
 	// Use this for initialization
@@ -34,9 +35,10 @@ public class Laser : MonoBehaviour {
 
 		Vector3 lastHandleWorldPos = lastHandleLocalPos + targetObj.transform.position;
 
+		Debug.Log (curveType.ToString ());
+
 		switch ( curveType ) {
 		case CurveType.Quadratic:
-			Debug.Log("Quad");
 			StartCoroutine (
 				QuadraticBezier.Calc (
 					beginTrans: this.transform,
@@ -47,8 +49,6 @@ public class Laser : MonoBehaviour {
 			);
 			break;
 		case CurveType.Cubic:
-			Debug.Log("Cubic");
-
 			StartCoroutine (
 				CubicBezier.Calc (
 				beginTrans: this.transform,
@@ -58,6 +58,18 @@ public class Laser : MonoBehaviour {
 				speed: 0.5f
 				)
 			);
+			break;
+		case CurveType.FergusonCoons:
+
+			StartCoroutine (
+				FergusonCoons.Calc ( 
+                    beginTrans: this.transform,
+                    endTrans:   targetObj.transform,
+                    firstVelocity: new Vector3 ( 1, 1, 1 ),
+                    lastVelocity:  new Vector3 ( -1, -1, 1 ),
+                    speed: 0.1f
+                )
+			);			
 			break;
 		}
 	}

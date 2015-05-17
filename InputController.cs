@@ -19,6 +19,8 @@ public class InputController : MonoBehaviour {
 			LaserObj.GetComponent<Laser> ().Fire (Camera.main.gameObject, this.Spider);
 		} else if (Input.GetKeyDown (KeyCode.Return)) {
 			LaserObj.GetComponent<Laser> ().Fire (Camera.main.gameObject, this.Spider, Laser.CurveType.Cubic);
+		} else if (Input.GetKeyDown (KeyCode.RightShift)) {
+			LaserObj.GetComponent<Laser> ().Fire (Camera.main.gameObject, this.Spider, Laser.CurveType.FergusonCoons);
 		}
 	}
 }

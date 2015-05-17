@@ -6,9 +6,6 @@ public static class QuadraticBezier {
 	public static IEnumerator Calc ( Transform beginTrans, Vector3 handleLocalPos, Transform endTrans, float speed = 1.0f) {
 		float ratio = 0.0f;
 
-		Vector3 handlePosAtFirst = handleLocalPos + beginTrans.position;
-		Vector3 endPosAtFirst = endTrans.position;
-
 		do {
 			beginTrans.position = CalcPos ( beginTrans.position,
 			                                handleLocalPos + beginTrans.position,
