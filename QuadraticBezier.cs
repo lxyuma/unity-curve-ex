@@ -3,14 +3,20 @@ using System.Collections;
 
 public static class QuadraticBezier {
 
-	public static IEnumerator Calc ( Transform beginTrans, Vector3 handleWorldPos, Transform endTrans, float speed = 1.0f) {
+	public static IEnumerator CalcWithMovableHandle ( Transform beginTrans, Vector3 handlePos, Transform endTrans, float speed = 1.0f) {
 		float ratio = 0.0f;
+
+		Vector3 handlePosAtFirst = handlePos + beginTrans.position;
+		Vector3 endPosAtFirst = endTrans.position;
+
 		do {
-			beginTrans.position = CalcPos ( beginTrans.position, handleWorldPos, endTrans.position, ratio );
+			beginTrans.position = CalcPos ( beginTrans.position,
+			                                handlePos + beginTrans.position,
+			                                endTrans.position,
+			                                ratio);
 			yield return new WaitForEndOfFrame();
 			ratio += Time.deltaTime * speed;
 		} while ( ratio < 1.0f );
-		beginTrans.position = CalcPos ( beginTrans.position, handleWorldPos, endTrans.position, 1.0f );
 	}
 
 	private static Vector3 CalcPos ( Vector3 beginPos, Vector3 handlePos, Vector3 endPos, float ratio) {

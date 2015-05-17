@@ -3,14 +3,21 @@ using System.Collections;
 
 public static class CubicBezier {
 
-	public static IEnumerator Calc ( Transform beginTrans, Vector3 firstHandle, Vector3 lastHandle, Transform endTrans, float speed = 1.0f) {
+	public static IEnumerator CalcWithMovableHandle ( Transform beginTrans,
+	                                                  Vector3 firstHandle,
+	                                                  Vector3 lastHandle,
+	                                                  Transform endTrans,
+	                                                  float speed = 1.0f) {
 		float ratio = 0.0f;
 		do {
-			beginTrans.position = CalcPos ( beginTrans.position, firstHandle, lastHandle, endTrans.position, ratio );
+			beginTrans.position = CalcPos ( beginTrans.position,
+			                                beginTrans.position + firstHandle,
+			                                endTrans.position + lastHandle,
+			                                endTrans.position,
+			                                ratio );
 			yield return new WaitForEndOfFrame();
 			ratio += Time.deltaTime * speed;
 		} while ( ratio < 1.0f );
-		beginTrans.position = CalcPos ( beginTrans.position, firstHandle, lastHandle, endTrans.position, 1.0f );
 	}
 
 	private static Vector3 CalcPos ( Vector3 beginPos, Vector3 firstHandlePos, Vector3 lastHandlePos, Vector3 endPos, float ratio) {
